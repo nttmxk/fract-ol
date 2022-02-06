@@ -1,28 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include "mlx.h"
-#include <math.h>
-//#include "mms/mlx.h"
-//#include "opengl/mlx.h"
-
-typedef struct  s_data
-{
-	void	*img;
-	char	*addr;
-	int	    bpp;
-	int	    line_length;
-	int	    endian;
-}               t_data;
-
-
-void		ft_error(void);
-int			ft_check_input(char *s);
-static int	_strcmp(char *s1, char *s2);
-void        ft_mandelbrot(void);
-int         iter_mandelbrot(double i, double j);
-void	    my_mlx_pixel_put(t_data *img, int x, int y, int color);
+#include "fract-ol.h"
 
 int	press_esc_key(int key, void *p)
 {
@@ -30,7 +6,7 @@ int	press_esc_key(int key, void *p)
 		exit(0);
 	return (0);
 }
-
+static int	_strcmp(char *s1, char *s2);
 int main(int argc, char **argv)
 {
 	if (argc != 2 || ft_check_input(argv[1]))
@@ -52,10 +28,22 @@ void	my_mlx_pixel_put(t_data *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+int get_color(int iter)
+{
+	int	color;
+	double r;
+
+	r = (double)iter / ITER_MAX;
+	color = (int)(8.5 * pow(1 - r, 3) * 255 * r) << 16;
+	color += (int)(15 * pow(1 - r, 2) * pow(r, 2) * 255) << 8;
+	color += (int)(9 * (1 - r) *pow(r, 3) * 255);
+}
+
 void ft_mandelbrot(void)
 {
 	void	*mlx;
 	void	*win_ptr;
+	int		iter;
 	int     x;
 	int     y;
 	t_data  img;
@@ -63,26 +51,25 @@ void ft_mandelbrot(void)
 	mlx = mlx_init();
 	if (!mlx)
 		exit(1);
-	win_ptr = mlx_new_window(mlx, 800, 600, "fractal");
+	win_ptr = mlx_new_window(mlx, WIN_WIDTH, WIN_HEIGHT, "fractal");
 	if (!win_ptr)
 		exit(1);
-	img.img = mlx_new_image(mlx, 800, 600);
+	img.img = mlx_new_image(mlx, WIN_WIDTH, WIN_HEIGHT);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_length, &img.endian);
 
 	x = -1;
-	int iter;
-	while (++x <= 800)
+	while (++x <= WIN_WIDTH)
 	{
 		y = -1;
-		while (++y <= 600)
+		while (++y <= WIN_HEIGHT)
 		{
 			iter = iter_mandelbrot((double)x, (double)y);
-			if (iter != 100)
-//				my_mlx_pixel_put(&img, x, y, 265 * iter);
+			if (iter != ITER_MAX)
+//				my_mlx_pixel_put(&img, x, y, get_color(iter));
 				mlx_pixel_put(mlx, win_ptr, x, y, 265 * iter);
 			else
 				my_mlx_pixel_put(&img, x, y, 0x000000);
-//			my_mlx_pixel_put(&img, x, y, get_color(iter_mandelbrot((double)x, (double)y)));
+//			my_mlx_pixel_put(&img, x, y, get_color(iter));
 		}
 	}
 	mlx_key_hook(win_ptr, press_esc_key, 0);
@@ -99,16 +86,16 @@ int iter_mandelbrot(double i, double j)
 	double y;
 
 //	printf("%f %f ", i , j);
-	i = (i - 400) / 200;
-	j = (300 - j) / 150;
+	i = (i - WIN_WIDTH / 2) * 4.0 / WIN_WIDTH;
+	j = (WIN_HEIGHT / 2 - j) * 4.0 / WIN_HEIGHT;
 	iter = 1;
 	x = i;
 	y = j;
 //	printf("|| i:%f, j:%f", i, j);
-	while (iter < 100 && pow(x, 2.0) + pow(y, 2.0) <= 4)
+	while (iter < ITER_MAX && pow(x, 2.0) + pow(y, 2.0) <= 4)
 	{
 		x_n = x;
-		x = pow(x, 2) - pow(y, 2) + i;
+		x = pow(x, 2.0) - pow(y, 2.0) + i;
 		y = 2 * x_n * y + j;
 		++iter;
 	}

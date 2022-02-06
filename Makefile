@@ -2,12 +2,11 @@ NAME					= fractal
 
 SRCS					= main.c
 
-BNS_SRCS_1				= server_bonus.c \
-						  server_utils_bonus.c
+BNS_SRCS				= test.c
 
 OBJS					= $(SRCS:.c=.o)
 
-BNS_OBJS_1				= $(BNS_SRCS_1:.c=.o)
+BNS_OBJS				= $(BNS_SRCS:.c=.o)
 
 #FLAGS					= -Wall -Wextra -Werror 
 FLAGS					= -lmlx -framework OpenGL -framework Appkit
