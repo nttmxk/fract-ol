@@ -1,4 +1,4 @@
-#include "fract-ol.h"
+#include "fractol.h"
 
 int	main_loop(t_data *data)
 {

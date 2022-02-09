@@ -1,4 +1,4 @@
-#include "fract-ol.h"
+#include "fractol.h"
 
 static int	_strcmp(char *s1, char *s2);
 

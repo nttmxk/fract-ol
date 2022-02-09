@@ -1,4 +1,4 @@
-#include "fract-ol.h"
+#include "fractol.h"
 
 void	ft_ship(double a, double b)
 {

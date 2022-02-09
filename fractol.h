@@ -1,5 +1,5 @@
-#ifndef FRACT_OL_H
-# define FRACT_OL_H
+#ifndef FRACTOL_H
+# define FRACTOL_H
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -26,7 +26,7 @@ typedef struct	s_data
 	int		x;
 	int		y;
 	int		press_f;
-	int 	color;
+	int		color;
 	int		bpp;
 	int		line_length;
 	int		endian;
@@ -51,13 +51,13 @@ int			iter_mandelbrot(double i, double j, double k);
  */
 void		ft_julia(double a, double b);
 void		ft_draw_julia(t_data *data);
-int         iter_julia(double x, double y, t_data *data);
+int			iter_julia(double x, double y, t_data *data);
 /*
  * burning_ship.c
  */
 void		ft_ship(double a, double b);
 void		ft_draw_ship(t_data *data);
-int         iter_ship(double x, double y, t_data *data);
+int			iter_ship(double x, double y, t_data *data);
 /*
  * fractol_utils.c
  */
