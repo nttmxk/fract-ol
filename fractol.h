@@ -16,7 +16,7 @@
 # define	DOWN		125
 # define	UP			126
 
-typedef struct	s_data
+typedef struct s_data
 {
 	void	*mlx;
 	void	*win;

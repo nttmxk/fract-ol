@@ -19,7 +19,10 @@ int	main(int argc, char **argv)
 
 void	ft_error(void)
 {
-	printf("usage: \"./fractal [fractals]\"\n fractals :\n --> Mandelbrot\n --> Julia 'a' 'b'\n --> Burning ship 'a' 'b'\n");
+	printf("usage: \"./fractal [fractals]\"\n fractals :\n"
+		   " --> Mandelbrot\n"
+		   " --> Julia 'a' 'b'\n"
+		   " --> Burning ship 'a' 'b'\n");
 	exit(1);
 }
 
@@ -39,7 +42,7 @@ int	ft_check_input(char *s)
 
 static int	_strcmp(char *s1, char *s2)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (s1[++i] && s2[i])

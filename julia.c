@@ -40,7 +40,6 @@ void	ft_draw_julia(t_data *data)
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 }
 
-
 int	iter_julia(double x, double y, t_data *data)
 {
 	int		iter;

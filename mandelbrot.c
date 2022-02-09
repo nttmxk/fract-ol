@@ -28,8 +28,8 @@ void	ft_draw_mandelbrot(t_data *data)
 		y = -1;
 		while (++y < WIN_HEIGHT)
 		{
-			iter = iter_mandelbrot((double)(x + dx), (double)(y + dy)
-								   , data->zoom_rate);
+			iter = iter_mandelbrot((double)(x + dx), (double)(y + dy),
+								   data->zoom_rate);
 			if (iter != ITER_MAX)
 				my_mlx_pixel_put(data, x, y, get_color(iter, data->color));
 			else
