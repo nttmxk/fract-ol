@@ -1,8 +1,18 @@
 NAME					= fractal
 
-SRCS					= main.c
+SRCS					= fractol.c \
+						  fractol_utils.c \
+						  fractol_loop.c \
+						  mandelbrot.c \
+						  julia.c \
+						  burning_ship.c
 
-BNS_SRCS				= test.c
+BNS_SRCS				= fractol.c \
+                          fractol_utils.c \
+                          fractol_loop.c \
+                          mandelbrot.c \
+                          julia.c \
+                          burning_ship.c
 
 OBJS					= $(SRCS:.c=.o)
 
