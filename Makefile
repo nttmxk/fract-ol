@@ -6,11 +6,11 @@
 #    By: jinoh <jinoh@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/10 15:48:08 by jinoh             #+#    #+#              #
-#    Updated: 2022/02/10 15:48:10 by jinoh            ###   ########.fr        #
+#    Updated: 2022/02/10 17:42:42 by jinoh            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME					= fractal
+NAME					= fractol
 
 SRCS					= fractol.c \
 						  fractol_utils.c \
@@ -40,7 +40,7 @@ endif
 
 
 $(NAME)	:	$(OBJ_FILES)
-	gcc $(FLAGS) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $@ $^
+	gcc $(FLAGS) -lmlx -framework OpenGL -framework AppKit -o $@ $^
 
 all		:	$(NAME)
 
