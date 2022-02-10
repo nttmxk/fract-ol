@@ -34,8 +34,8 @@ int	ft_check_input(char *s)
 		return (_strcmp(s, "Mandelbrot"));
 	else if (s[0] == 'J')
 		return (_strcmp(s, "Julia"));
-	else if (s[0] == 'S')
-		return (_strcmp(s, "Snowflake"));
+	else if (s[0] == 'B')
+		return (_strcmp(s, "Burning ship"));
 	else
 		return (1);
 }

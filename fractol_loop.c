@@ -6,6 +6,8 @@ int	main_loop(t_data *data)
 		ft_draw_mandelbrot(data);
 	else if (data->type == 1)
 		ft_draw_julia(data);
+	else if (data->type == 2)
+		ft_draw_ship(data);
 	return (0);
 }
 
@@ -20,16 +22,31 @@ int	mouse_button(int button, int x, int y, void *p)
 		data->b = (WIN_HEIGHT / 2 - y) * 4.0 / WIN_HEIGHT;
 		data->press_f = 0;
 	}
-	if (button == ZOOM_IN || button == ZOOM_OUT)
-	{
-		data->x += (x - WIN_WIDTH / 2) * data->zoom_rate / 2;
-		data->y += (WIN_HEIGHT / 2 - y) * data->zoom_rate / 2;
-		if (button == ZOOM_IN)
-			data->zoom_rate *= 0.9;
-		if (button == ZOOM_OUT)
-			data->zoom_rate *= 1.1;
-	}
+	if (button == ZOOM_IN)
+		ft_zoom(0.8, x, y, data);
+	else if (button == ZOOM_OUT)
+		ft_zoom(1.2, x, y, data);
 	return (0);
+}
+
+void	ft_zoom(double zoom_rate, int x, int y, t_data *p)
+{
+	if (zoom_rate > 1)
+	{
+		p->y = (y * p->zoom_rate + p->y) - (y * p->zoom_rate * 1.2);
+		p->x = (x * p->zoom_rate + p->x) - (x * p->zoom_rate * 1.2);
+		p->x -= (x - WIN_WIDTH / 2);
+		p->y -= (y - WIN_HEIGHT / 2);
+		p->zoom_rate *= 1.2;
+	}
+	else
+	{
+		p->x = (x * p->zoom_rate + p->x) - (x * p->zoom_rate / 1.2);
+		p->y = (y * p->zoom_rate + p->y) - (y * p->zoom_rate / 1.2);
+		p->x += (x - WIN_WIDTH / 2);
+		p->y += (y - WIN_HEIGHT / 2);
+		p->zoom_rate /= 1.2;
+	}
 }
 
 static void	ft_key(int key, t_data *p)
@@ -47,9 +64,9 @@ static void	ft_key(int key, t_data *p)
 	else if (key == UP)
 		p->y -= 25;
 	else if (key == PLUS)
-		p->zoom_rate *= 0.9;
+		ft_zoom(0.8, WIN_WIDTH / 2, WIN_HEIGHT / 2, p);
 	else if (key == MINUS)
-		p->zoom_rate *= 1.1;
+		ft_zoom(1.2, WIN_WIDTH / 2, WIN_HEIGHT / 2, p);
 	else if (key == F)
 		p->press_f = 1;
 	else if (key == C)

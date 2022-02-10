@@ -12,7 +12,7 @@ void	data_init(t_data *data)
 	if (!data->img)
 		exit(1);
 	data->addr = mlx_get_data_addr(data->img, &data->bpp,
-								   &data->line_length, &data->endian);
+			&data->line_length, &data->endian);
 	if (!data->addr)
 		exit(1);
 	data->x = 0;
@@ -34,12 +34,12 @@ int	get_color(int iter, int shift_color)
 	color += (int)(9 * (1 - r) * pow(r, 3) * 255);
 	if (shift_color == 1)
 		color = ((color & 0xFF0000) >> 16)
-				+ ((color & 0x00FF00) << 8)
-				+ ((color & 0x0000FF) << 8);
+			+ ((color & 0x00FF00) << 8)
+			+ ((color & 0x0000FF) << 8);
 	else if (shift_color == 2)
 		color = ((color & 0xFF0000) >> 8)
-				+ ((color & 0x00FF00) >> 8)
-				+ ((color & 0x0000FF) << 16);
+			+ ((color & 0x00FF00) >> 8)
+			+ ((color & 0x0000FF) << 16);
 	return (color);
 }
 

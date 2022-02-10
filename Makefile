@@ -19,7 +19,6 @@ OBJS					= $(SRCS:.c=.o)
 BNS_OBJS				= $(BNS_SRCS:.c=.o)
 
 FLAGS					= -Wall -Wextra -Werror 
-#FLAGS					= -lmlx -framework OpenGL -framework Appkit
 
 ifdef WITH_BNS
 	OBJ_FILES = $(BNS_OBJS)

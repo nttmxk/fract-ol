@@ -77,5 +77,5 @@ double		ft_atof(const char *str);
 int			main_loop(t_data *img);
 int			mouse_button(int button, int x, int y, void *p);
 int			press_key(int key, void *p);
-
+void		ft_zoom(double zoom_rate, int x, int y, t_data *p);
 #endif
