@@ -69,10 +69,8 @@ double	ft_atof(const char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 		ret = ret * 10 + sign * (str[i++] - '0');
 	if (str[i] == '.')
-	{
 		++i;
-		dot = i;
-	}
+	dot = i;
 	while (str[i] >= '0' && str[i] <= '9')
 		ret = ret * 10 + sign * (str[i++] - '0');
 	return ((double)ret / pow(10, i - dot));

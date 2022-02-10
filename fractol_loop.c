@@ -20,15 +20,16 @@ int	mouse_button(int button, int x, int y, void *p)
 		data->b = (WIN_HEIGHT / 2 - y) * 4.0 / WIN_HEIGHT;
 		data->press_f = 0;
 	}
-	if (button == 5 || button == 4)
+	if (button == ZOOM_IN || button == ZOOM_OUT)
 	{
 		data->x += (x - WIN_WIDTH / 2) * data->zoom_rate / 2;
 		data->y += (WIN_HEIGHT / 2 - y) * data->zoom_rate / 2;
-		if (button == 5)
+		if (button == ZOOM_IN)
 			data->zoom_rate *= 0.9;
-		if (button == 4)
+		if (button == ZOOM_OUT)
 			data->zoom_rate *= 1.1;
 	}
+	return (0);
 }
 
 static void	ft_key(int key, t_data *p)
@@ -45,17 +46,17 @@ static void	ft_key(int key, t_data *p)
 		p->y += 25;
 	else if (key == UP)
 		p->y -= 25;
-	else if (key == 24)
+	else if (key == PLUS)
 		p->zoom_rate *= 0.9;
-	else if (key == 27)
+	else if (key == MINUS)
 		p->zoom_rate *= 1.1;
-	else if (key == 13) // F
+	else if (key == F)
 		p->press_f = 1;
-	else if (key == 15) // C
+	else if (key == C)
 	{
-		if (shift_color == 2)
-			shift_color = -1;
-		++shift_color;
+		if (p->color == 2)
+			p->color = -1;
+		++p->color;
 	}
 }
 
@@ -63,8 +64,8 @@ int	press_key(int key, void *p)
 {
 	if ((key == A || key == D)
 		|| (key >= LEFT && key <= UP)
-		|| (key == 24 || key == 27)
-		|| (key == 13 || key == 15)) // 13 should be replaced with C. 15 should be replaced with F
+		|| (key == PLUS || key == MINUS)
+		|| (key == C || key == F))
 		ft_key(key, (t_data *)p);
 	else if (key == 53)
 		exit(0);

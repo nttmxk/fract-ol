@@ -11,10 +11,16 @@
 # define	ITER_MAX	100
 # define	A			0
 # define	D			2
+# define	F			3
+# define	C			8
 # define	LEFT		123
 # define	RIGHT		124
 # define	DOWN		125
 # define	UP			126
+# define	PLUS        24
+# define	MINUS       27
+# define	ZOOM_IN     5
+# define	ZOOM_OUT	4
 
 typedef struct s_data
 {
@@ -61,7 +67,7 @@ int			iter_ship(double x, double y, t_data *data);
 /*
  * fractol_utils.c
  */
-int			get_color(int iter);
+int			get_color(int iter, int shift_color);
 void		my_mlx_pixel_put(t_data *img, int x, int y, int color);
 void		data_init(t_data *data);
 double		ft_atof(const char *str);
