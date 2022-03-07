@@ -6,7 +6,7 @@
 /*   By: jinoh <jinoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 15:48:31 by jinoh             #+#    #+#             */
-/*   Updated: 2022/02/10 15:48:32 by jinoh            ###   ########.fr       */
+/*   Updated: 2022/03/07 20:36:50 by jinoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	mouse_button(int button, int x, int y, void *p)
 {
 	t_data	*data;
 
-	data = (t_data *)p;
+	data = (t_data *) p;
 	if (data->press_f && data->type != 0)
 	{
 		data->a = (x - WIN_WIDTH / 2) * 4.0 / WIN_WIDTH;
@@ -35,29 +35,24 @@ int	mouse_button(int button, int x, int y, void *p)
 		data->press_f = 0;
 	}
 	if (button == ZOOM_IN)
-		ft_zoom(0.8, x, y, data);
-	else if (button == ZOOM_OUT)
 		ft_zoom(1.2, x, y, data);
+	else if (button == ZOOM_OUT)
+		ft_zoom(1 / 1.2, x, y, data);
 	return (0);
 }
 
 void	ft_zoom(double zoom_rate, int x, int y, t_data *p)
 {
-	if (zoom_rate > 1)
+	p->zoom_rate *= zoom_rate;
+	if (x || y)
 	{
-		p->y = (y * p->zoom_rate + p->y) - (y * p->zoom_rate * 1.2);
-		p->x = (x * p->zoom_rate + p->x) - (x * p->zoom_rate * 1.2);
-		p->x -= (x - WIN_WIDTH / 2);
-		p->y -= (y - WIN_HEIGHT / 2);
-		p->zoom_rate *= 1.2;
+		p->x = (int)((x + p->x) * zoom_rate) - WIN_WIDTH / 2;
+		p->y = (int)((y + p->y) * zoom_rate) - WIN_HEIGHT / 2;
 	}
 	else
 	{
-		p->x = (x * p->zoom_rate + p->x) - (x * p->zoom_rate / 1.2);
-		p->y = (y * p->zoom_rate + p->y) - (y * p->zoom_rate / 1.2);
-		p->x += (x - WIN_WIDTH / 2);
-		p->y += (y - WIN_HEIGHT / 2);
-		p->zoom_rate /= 1.2;
+		p->x = (int)(zoom_rate * (WIN_WIDTH / 2 + p->x)) - WIN_WIDTH / 2;
+		p->y = (int)(zoom_rate * (WIN_HEIGHT / 2 + p->y)) - WIN_HEIGHT / 2;
 	}
 }
 
@@ -76,9 +71,9 @@ static void	ft_key(int key, t_data *p)
 	else if (key == UP)
 		p->y -= 25;
 	else if (key == PLUS)
-		ft_zoom(0.8, WIN_WIDTH / 2, WIN_HEIGHT / 2, p);
+		ft_zoom(1.2, 0, 0, p);
 	else if (key == MINUS)
-		ft_zoom(1.2, WIN_WIDTH / 2, WIN_HEIGHT / 2, p);
+		ft_zoom(1 / 1.2, 0, 0, p);
 	else if (key == F)
 		p->press_f = 1;
 	else if (key == C)
@@ -95,7 +90,7 @@ int	press_key(int key, void *p)
 		|| (key >= LEFT && key <= UP)
 		|| (key == PLUS || key == MINUS)
 		|| (key == C || key == F))
-		ft_key(key, (t_data *)p);
+		ft_key(key, (t_data *) p);
 	else if (key == 53)
 		exit(0);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: jinoh <jinoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 15:48:45 by jinoh             #+#    #+#             */
-/*   Updated: 2022/02/10 15:48:46 by jinoh            ###   ########.fr       */
+/*   Updated: 2022/03/07 20:37:39 by jinoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,10 @@ int	iter_mandelbrot(double i, double j, double zoom_rate)
 	double	x;
 	double	y;
 
-	i = (i - WIN_WIDTH * zoom_rate / 2) * 4.0 / WIN_WIDTH * zoom_rate - 0.5;
-	j = (WIN_HEIGHT * zoom_rate / 2 - j) * 4.0 / WIN_HEIGHT * zoom_rate;
+	i = (i - (double)WIN_WIDTH * zoom_rate / 2)
+		* 4.0 / (WIN_WIDTH * zoom_rate);
+	j = ((double)WIN_HEIGHT * zoom_rate / 2 - j)
+		* 4.0 / (WIN_HEIGHT * zoom_rate);
 	iter = 1;
 	x = i;
 	y = j;
